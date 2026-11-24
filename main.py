@@ -21,10 +21,11 @@ LINE = (
 
 def validate_line(line: str) -> None:
     """Guard: the line must satisfy the competition gate (1-320 chars,
-    single line, not only whitespace, no trailing newline)."""
+    single line, not only whitespace, no trailing newline, no control
+    characters that could split it across lines)."""
     if not 1 <= len(line) <= 320:
         raise ValueError("line must be 1-320 chars")
-    if "\n" in line or line != line.strip():
+    if "\n" in line or "\r" in line or line != line.strip():
         raise ValueError("line must be a single line with no trailing newline")
     if not line.strip():
         raise ValueError("line must not be only whitespace")
